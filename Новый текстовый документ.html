@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>I Sell Air</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            padding: 100px;
+            background: linear-gradient(to top, #ccefff, #ffffff);
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Облачка на фоне */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 20s linear infinite;
+        }
+
+        .cloud1 {
+            width: 200px;
+            height: 100px;
+            top: 50px;
+            left: -250px;
+            animation-delay: 0s;
+        }
+
+        .cloud2 {
+            width: 150px;
+            height: 80px;
+            top: 200px;
+            left: -200px;
+            animation-delay: 5s;
+        }
+
+        .cloud3 {
+            width: 250px;
+            height: 120px;
+            top: 400px;
+            left: -300px;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(120vw); }
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 24px;
+            background-color: #007BFF; /* синяя кнопка */
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            animation: pulse 2s infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        a.button:hover {
+            background-color: #0069d9;
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .footer {
+            margin-top: 60px;
+            font-size: 16px;
+            color: #555;
+            position: relative;
+            z-index: 1;
+        }
+
+        .counter-container {
+            margin-top: 30px;
+            font-size: 22px;
+            color: #007BFF;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Стиль для формы ввода */
+        input[type="number"] {
+            padding: 10px;
+            font-size: 18px;
+            width: 120px;
+            border: 2px solid #007BFF;
+            border-radius: 8px;
+            margin-right: 10px;
+            text-align: right;
+        }
+
+        button.update-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button.update-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Облачка -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+
+    <h1>I Sell Air</h1>
+    <p>You can buy air from me for $1.<br>
+    The air is already around you — it's all fair.</p>
+    <a class="button" href=https://www.donationalerts.com/c/deamnrich>Buy Air</a>
+
+    <div class="counter-container">
+        <p>I only need <span style="color:#333;">$60,000</span></p>
+        <p>Amount raised so far: <span id="amountRaised">$0</span></p>
+
+        <!-- Форма для ручного обновления -->
+        <div style="margin-top: 20px;">
+            <input type="number" id="manualAmount" min="0" step="100" placeholder="Enter amount" />
+            <button class="update-btn" onclick="updateAmount()">Update</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>P.S. help me save up for my dream please). Car — an Audi RS7 2015. Every donation brings me a little closer to this. 🙏🚗💨</p>
+    </div>
+
+    <script>
+        const amountDisplay = document.getElementById('amountRaised');
+        const input = document.getElementById('manualAmount');
+
+        // Получаем сумму из localStorage, если есть
+        let currentAmount = parseInt(localStorage.getItem('raisedAmount')) || 0;
+
+        function setAmount(amount) {
+            currentAmount = amount;
+            amountDisplay.textContent = '$' + currentAmount.toLocaleString();
+            // Сохраняем в localStorage
+            localStorage.setItem('raisedAmount', currentAmount);
+        }
+
+        function updateAmount() {
+            let val = parseInt(input.value);
+            if (isNaN(val) || val < 0) {
+                alert('Please enter a valid positive number');
+                return;
+            }
+            setAmount(val);
+            input.value = '';
+        }
+
+        // При загрузке страницы отображаем сохранённую сумму
+        setAmount(currentAmount);
+    </script>
+</body>
+</html>
